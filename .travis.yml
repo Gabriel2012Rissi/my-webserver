@@ -2,9 +2,6 @@ language: ruby
 
 env:
   global:
-  - secure: AcdAIvQsNEFxcCw1mppDa+wCtSFhWjkxRbleEzwL5kA+gHjjrw7Coa3lOVXVy8N85knbMvQFe76Cg9aGvF3u4ZhCCTk9WGC3GJgacyKiALilchJsQ4fDp8vS0Tihy+qDKhh5D+s7FJa3FsYfYw5+utjTnfUVQXhGUu7DwLufhqJYoXfAypkSD4Jd/Uype8FK9tGs83w7N0jzZ5zT1mcvZtdJjfLDEZ9BiKH6ZO1yU5s8XdyOmf62ZzRgcB2X2bEvwYO4Omh6R2j38oBIVFoMnMq8dsF/OSt79Jvq2FeeZhhm7M2hbB7GRWUQ4mEUdsimw8DzBuNnQQX6ESAp4WTSy7xM8zZWwU4JL8lW+Hw++7oaQsjqIjCMCF8ysSirPct8Q2R8OvRGjTYvIekOnE5vbzildsQU35SCfmub2fKYEAqql7+dUb36JpliyR6LkbTI03fagemq5WvQAYxhPs1fU1I46a/iBRM8wARqMgFIXqy5mYsjRs1thlMpBCrrqdf4EEL8s1UIS5ppGqFf5unAQ2fIeu7os7d6kPG8rlFTxGomEjliKAT0tGbtzW95YR799pziwRuODzq4aJv68LpXyUSvL5hS6PD9CP5RjkAbQaBl8/VOvfqPFgsPfwBNWMOOKrIb7rPDPBm+MyNTvVmSkUyCD9tFdgbVpXJZyxiYqPg=
-  - secure: dOjM/4RScK4bJ6bNlax/ULTYAfB3Wdmvxu77xOAl4pfd4qOWXHhsLKeeYuzg9tZfg54xAfDDyvQ4zZi6UCx4tO2j5GRrQ1UNC2LbBZlPqg/Vy+eMk8CQOzk5cQzqpKRPHKqJ9/RYu3cLlaKMbxfjUx1UZNdcYk/BGP8Y/B/zxwC2ittFb8vdpR+E+WiJIYUos0ELV1CFn0W+E0KcqznjPYhgndD+WENnvfNEEe4YnMH37JLhirxBbfOtaefa1fUwMGq9QumEahJJ75L3jXnFOO6EASEBWOyCmKMwrh1GDEXLKxravLb1fZ6pc2LpxOG2pYgf1cHuJ029xaLID89nappnJ63JQvYEvgSJEXkI18J+Yl5j9FAH6FVSL0ie0wikyO6EkocG/fnohHDT70Hs9WhDyWm6H6oWjTZXSgAiM2tCzZn2bAB2E+BRypsJRLb6+YBkkwJEKl3kDnieY1FSTMgj2vaHGBdVqhaUJ2zv29BujkQIvqn8BeJxjoQL5eFOwtEU3LDeVvEwV1eJ1x3HBeBZBRlOC+RY6VZofvUdoT3/g7fJph7iBYaCyAGUga7Vw6YB/fbmAV3B6HW7xVfx53iE+f0vtIJLurr78vsdrCO+Pmid1xNPkK2s6bkw5fussrfjEEheQbFGD8iE90w8D+1/b1y5EOdR7FMSJnUVyD4=
-  - secure: DX3mqKs4DZqy05ObBy4D4+9+lq2Vv7ilxd0t4aF+k2AVfXz6gihifi/gqvVU0g5aAy4YY+pKvqN6F+kbhzW2g6qMZHOE+fTAqAYPYzXZpOsShwvnSIR0nqsUXRWMTb0JSgosWOWds7SOKhoeIaZmUalZh2flUpONA+Wsqo7ASTy7uzYailzSTocDAZetQnnSP38F+25Y6RioGzmyMC83Ds6JtjA+ZLTHvLp7B+KM3VTd8nGMnJMpgGahhZDHf+tuPxvT+RUCopUwHjLgXeBIK7ODZT1z3iVjSX9dYBt9PigyQEBfcD5lYWLcifECn85KOLkjNvCyi+PDPFkUAFpmt3EnvkDxuFLJfnqNN4TrvFRCDPEZls7y3wqkf1CkwlfAhTrLsDXuLwWSNlx+yS7p6tRnzcIfWKWRqOMek6irgjZxxK1OF2rpuxqK+QlG7vQ5RdJx5wNkNJDsXJ2KIfIGETYfapthveJVlSKS2dbs9+Z6xqfLfdC+YzZh3uC6Ra2EVV9YiUila/277SVoA+kzirVqVa5Vr6amqkDLvHWm2yIoCVDLIsbZzD6kOY6uE7doleUFsdRRVQ925lkZ6EoYMZclLJ5/gPqs9RUnEiI3db58nrx0q0rncCfkERqwe5v7QceBnKVjQdHXvWJAmRxZFjEVaudcvOzvQ4241loqAxc=
   - COMMIT=${TRAVIS_COMMIT::8}
 
 notifications:
@@ -32,9 +29,9 @@ script:
 cache: bundler
 
 after_success:
-- docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
 - export REPO=gabriel2012rissi/my-webserver
 - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
+- docker login -u $DOCKER_USER -p $DOCKER_PASS
 - docker build -f Dockerfile -t $REPO:$COMMIT .
 - docker tag $REPO:$COMMIT $REPO:$TAG
 - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
