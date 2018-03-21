@@ -12,6 +12,7 @@ notifications:
     on_failure: always
     rooms:
     - huebrops:oQZYgN0fvoyFBVjuIUQREc8h
+    - huebrops:oQZYgN0fvoyFBVjuIUQREc8h#ci
 
 rvm:
 - 2.5.0
