@@ -1,0 +1,9 @@
+---
+- name: Copiar arquivos
+  copy:
+    src: ../files/
+    dest: "{{ lookup('env','MY_DIR') }}"
+    owner: www-data
+    group: www-data
+    mode: 0644
+  

@@ -1,0 +1,13 @@
+---
+- name: Instalar Apache2
+  apt: 
+    pkg: apache2 
+    state: present 
+    update_cache: yes
+  notify:
+    - Reiniciar Apache2
+
+- name: Ativar Apache2
+  service: 
+    name: apache2 
+    enabled: yes
