@@ -2,7 +2,7 @@
 - name: Copiar arquivos
   copy:
     src: ../files/
-    dest: "{{ lookup('env','MY_DIR') }}"
+    dest: "{{ lookup('env','MY_DIR') }}/projects"
     owner: www-data
     group: www-data
     mode: 0644
